@@ -15,32 +15,38 @@ public class Main {
 
     private static void startApp() {
         int index = 1;
+
         while (true) {
-            Scanner scanner = new Scanner(System.in);
-            System.out.print("명령) ");
-            String option = scanner.nextLine();
-            if (option.equals("등록")) {
-                System.out.print("명언 : ");
-                String wiseSaying = scanner.nextLine();
-                System.out.print("작가 : ");
-                String writer = scanner.nextLine();
-                WiseSaying wiseObj = new WiseSaying(wiseSaying, writer, index);
-                WiseSaying.getWsList().add(wiseObj);
-                System.out.println(index + "번 명언이 등록되었습니다.");
-                index++;
-            } else if(option.equals("목록")) {
-                printWsList();
-            } else if (option.startsWith("삭제?id=")) {
-                // contains를 사용하면 asdf삭제?id= 이런 경우 예외 발생
-                int deleteNumber = Integer.parseInt(option.substring(6));
-                deleteWsList(deleteNumber);
-                System.out.println(deleteNumber + "명언이 삭제되었습니다.");
-            } else if (option.equals("종료")) {
-                scanner.close();
-                break;
+            try {
+                Scanner scanner = new Scanner(System.in);
+                System.out.print("명령) ");
+                String option = scanner.nextLine();
+                if (option.equals("등록")) {
+                    System.out.print("명언 : ");
+                    String wiseSaying = scanner.nextLine();
+                    System.out.print("작가 : ");
+                    String writer = scanner.nextLine();
+                    WiseSaying wiseObj = new WiseSaying(wiseSaying, writer, index);
+                    WiseSaying.getWsList().add(wiseObj);
+                    System.out.println(index + "번 명언이 등록되었습니다.");
+                    index++;
+                } else if (option.equals("목록")) {
+                    printWsList();
+                } else if (option.startsWith("삭제?id=")) {
+                    // contains를 사용하면 asdf삭제?id= 이런 경우 예외 발생
+                    int deleteNumber = Integer.parseInt(option.substring(6));
+                    deleteWsList(deleteNumber);
+                    System.out.println(deleteNumber + "명언이 삭제되었습니다.");
+                } else if (option.equals("종료")) {
+                    scanner.close();
+                    break;
+                }
+            } catch (NumberFormatException e) {
+                System.out.println("id뒤에는 숫자를 입력하세요.");
             }
         }
     }
+
     private static void printWsList() {
         // 내림차순 정렬
         Collections.sort(WiseSaying.getWsList(), new Comparator<WiseSaying>() {
