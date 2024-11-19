@@ -1,9 +1,12 @@
 package org.example.step5;
 
+import java.util.Collections;
+import java.util.Comparator;
 import java.util.Scanner;
 
 public class Main {
     // 내림차순 출력 수정 생각해보기
+    // 추후 스트림으로 변경해보기
 
     public static void main(String[] args) {
         System.out.println("== 명언 앱 ==");
@@ -34,6 +37,14 @@ public class Main {
         }
     }
     private static void printWsList() {
+        // 내림차순 정렬
+        Collections.sort(WiseSaying.getWsList(), new Comparator<WiseSaying>() {
+            @Override
+            public int compare(WiseSaying ws1, WiseSaying ws2) {
+                return Integer.compare(ws2.getNumber(), ws1.getNumber()); // 내림차순
+            }
+        });
+
         for (WiseSaying ws : WiseSaying.getWsList()) {
             System.out.println(ws.getNumber() + " / " + ws.getWriter() + " / " + ws.getWiseSaying());
         }
