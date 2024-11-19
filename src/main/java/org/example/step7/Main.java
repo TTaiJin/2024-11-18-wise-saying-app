@@ -1,4 +1,4 @@
-package org.example.step6;
+package org.example.step7;
 
 import java.util.Collections;
 import java.util.Comparator;
@@ -35,8 +35,12 @@ public class Main {
                 } else if (option.startsWith("삭제?id=")) {
                     // contains를 사용하면 asdf삭제?id= 이런 경우 예외 발생
                     int deleteNumber = Integer.parseInt(option.substring(6));
-                    deleteWsList(deleteNumber);
-                    System.out.println(deleteNumber + "명언이 삭제되었습니다.");
+                    boolean isDeleted = deleteWsList(deleteNumber);
+                    if (isDeleted) {
+                        System.out.println(deleteNumber + "번 명언이 삭제되었습니다.");
+                    } else {
+                        System.out.println(deleteNumber + "번 명언이 존재하지 않습니다.");
+                    }
                 } else if (option.equals("종료")) {
                     scanner.close();
                     break;
@@ -55,18 +59,19 @@ public class Main {
                 return Integer.compare(ws2.getNumber(), ws1.getNumber()); // 내림차순
             }
         });
-
+        System.out.println("번호 / 작가 / 명언");
         for (WiseSaying ws : WiseSaying.getWsList()) {
             System.out.println(ws.getNumber() + " / " + ws.getWriter() + " / " + ws.getWiseSaying());
         }
     }
 
-    private static void deleteWsList(int number) {
+    private static boolean deleteWsList(int number) {
         for (int i = 0; i < WiseSaying.getWsList().size(); i++) {
             if (WiseSaying.getWsList().get(i).getNumber() == number) {
                 WiseSaying.getWsList().remove(i);
-                break;
+                return true;
             }
         }
+        return false;
     }
 }
