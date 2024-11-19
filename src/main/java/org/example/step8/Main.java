@@ -26,7 +26,7 @@ public class Main {
                 } else {
                     System.out.println(deleteNumber + "번 명언이 존재하지 않습니다.");
                 }
-            } else if (option.startsWith("수정?id=")) {
+            } else if (option.startsWith("수정?id=")) { // contains를 사용하면 asdf삭제?id= 이런 경우 예외 발생
                 int editNumber = Integer.parseInt(option.substring(6));
                 boolean isExist = edit(editNumber);
                 if (isExist) {
