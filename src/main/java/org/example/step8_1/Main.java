@@ -6,7 +6,7 @@ import java.util.Comparator;
 import java.util.Scanner;
 
 public class Main {
-    // 추후 스트림으로 변경해보기
+    // 추후 스트림 공부하고 스트림으로 변경해보기
     private static Scanner scanner = new Scanner(System.in);
     private static int index = 1;
     private static ArrayList<WiseSaying> wsList = new ArrayList<>();
@@ -45,9 +45,10 @@ public class Main {
 
     private static void register() {
         System.out.print("명언 : ");
-        String wiseSaying = scanner.nextLine();
+        // 정규 표현식으로 특수 기호 필터링(GPT)
+        String wiseSaying = scanner.nextLine().replaceAll("[^a-zA-Z0-9가-힣\\s]", "");
         System.out.print("작가 : ");
-        String writer = scanner.nextLine();
+        String writer = scanner.nextLine().replaceAll("[^a-zA-Z0-9가-힣\\s]", "");;
         WiseSaying wsObj = new WiseSaying(wiseSaying, writer, index);
         wsList.add(wsObj);
         System.out.println(index + "번 명언이 등록되었습니다.");
@@ -55,7 +56,7 @@ public class Main {
     }
 
     private static void print() {
-        // 내림차순 정렬
+        // 내림차순 정렬(GPT)
         Collections.sort(wsList, new Comparator<WiseSaying>() {
             @Override
             public int compare(WiseSaying ws1, WiseSaying ws2) {
