@@ -33,7 +33,12 @@ public class App {
             }
             switch (command) {
                 case 등록 -> actionAdd();
-                case 삭제 -> actionDelete();
+                case 삭제 -> {
+                    System.out.print("삭제할 명언의 번호를 입력하세요: ");
+                    int deleteId = scanner.nextInt();
+                    scanner.nextLine();
+                    wiseSayingController.actionDelete(wiseSayings, deleteId);
+                }
                 case 수정 -> actionEdit();
                 case 목록 -> wiseSayingController.actionList(wiseSayings);
                 case 종료 -> actionExit();
@@ -50,16 +55,6 @@ public class App {
         wiseSayings.add(wiseSaying);
         System.out.println(lastId + "번 명언이 등록되었습니다.");
         lastId++;
-    }
-
-    private void actionDelete() {
-        System.out.print("삭제할 명언의 번호를 입력하세요: ");
-        int deleteId = scanner.nextInt();
-        scanner.nextLine();
-        boolean delete = wiseSayings.removeIf(e -> e.getId() == deleteId);
-
-        if (delete) System.out.println(deleteId + "번 명언이 삭제되었습니다.");
-        else System.out.println(deleteId + "번 명언이 존재하지 않습니다.");
     }
 
     private void actionEdit() {

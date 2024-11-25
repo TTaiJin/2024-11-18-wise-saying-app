@@ -13,4 +13,12 @@ public class WiseSayingController {
                 .sorted(Comparator.comparingInt(WiseSaying::getId).reversed())
                 .forEach(e -> System.out.println(e.getId() + " / " + e.getWriter() + " / " + e.getContent()));
     }
+
+    public void actionDelete(List<WiseSaying> wiseSayings, int deleteId) {
+
+        boolean delete = wiseSayings.removeIf(e -> e.getId() == deleteId);
+
+        if (delete) System.out.println(deleteId + "번 명언이 삭제되었습니다.");
+        else System.out.println(deleteId + "번 명언이 존재하지 않습니다.");
+    }
 }
