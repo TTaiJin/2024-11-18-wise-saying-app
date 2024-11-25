@@ -1,24 +1,25 @@
 package org.example.step9;
 
+import org.example.step9.dom.system.controller.SystemController;
 import org.example.step9.domain.wiseSaying.controller.WiseSayingController;
 
 import java.util.Scanner;
 
 public class App {
     private final Scanner scanner;
-    private boolean isRunning;
+    private final SystemController systemController;
 
     private final WiseSayingController wiseSayingController;
 
     public App() {
         scanner = new Scanner(System.in);
-        isRunning = true;
         wiseSayingController = new WiseSayingController(scanner);
+        systemController = new SystemController();
     }
 
     public void run() {
         System.out.println("== 명언 앱 ==");
-        while (isRunning) {
+        while (true) {
             System.out.print("명령) ");
             String cmd = scanner.nextLine();
             Command command = Command.fromString(cmd);
@@ -41,14 +42,12 @@ public class App {
                     wiseSayingController.actionEdit(editId);
                 }
                 case 목록 -> wiseSayingController.actionList();
-                case 종료 -> actionExit();
+                case 종료 -> {
+                    systemController.actionExit();
+                    scanner.close();
+                    return;
+                }
             }
         }
-    }
-
-    private void actionExit() {
-        System.out.println("종료합니다.");
-        scanner.close();
-        isRunning = false;
     }
 }
