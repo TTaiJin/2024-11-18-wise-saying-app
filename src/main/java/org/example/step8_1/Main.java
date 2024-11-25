@@ -2,7 +2,6 @@ package org.example.step8_1;
 
 import java.util.ArrayList;
 import java.util.Collections;
-import java.util.Comparator;
 import java.util.Scanner;
 
 public class Main {
@@ -57,12 +56,13 @@ public class Main {
 
     private static void print() {
         // 내림차순 정렬(GPT)
-        Collections.sort(wsList, new Comparator<WiseSaying>() {
+     /*   Collections.sort(wsList, new Comparator<WiseSaying>() {
             @Override
             public int compare(WiseSaying ws1, WiseSaying ws2) {
                 return Integer.compare(ws2.getIndex(), ws1.getIndex()); // 내림차순
             }
-        });
+        });*/
+        Collections.reverse(wsList);
         System.out.println("번호 / 작가 / 명언");
         System.out.println("------------------");
         for (WiseSaying ws : wsList) {
