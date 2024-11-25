@@ -1,22 +1,19 @@
 package org.example.step9;
 
 import org.example.step9.domain.wiseSaying.controller.WiseSayingController;
-import org.example.step9.domain.wiseSaying.entity.WiseSaying;
 
-import java.util.*;
+import java.util.Scanner;
 
 public class App {
     private final Scanner scanner;
-    private final List<WiseSaying> wiseSayings;
     private boolean isRunning;
 
     private final WiseSayingController wiseSayingController;
 
     public App() {
         scanner = new Scanner(System.in);
-        wiseSayings = new ArrayList<>();
         isRunning = true;
-        wiseSayingController = new WiseSayingController();
+        wiseSayingController = new WiseSayingController(scanner);
     }
 
     public void run() {
@@ -30,20 +27,20 @@ public class App {
                 continue;
             }
             switch (command) {
-                case 등록 -> wiseSayingController.actionAdd(scanner, wiseSayings);
+                case 등록 -> wiseSayingController.actionAdd();
                 case 삭제 -> {
                     System.out.print("삭제할 명언의 번호를 입력하세요: ");
                     int deleteId = scanner.nextInt();
                     scanner.nextLine();
-                    wiseSayingController.actionDelete(wiseSayings, deleteId);
+                    wiseSayingController.actionDelete(deleteId);
                 }
                 case 수정 -> {
                     System.out.println("수정할 명언의 번호를 입력하세요: ");
                     int editId = scanner.nextInt();
                     scanner.nextLine();
-                    wiseSayingController.actionEdit(scanner, wiseSayings, editId);
+                    wiseSayingController.actionEdit(editId);
                 }
-                case 목록 -> wiseSayingController.actionList(wiseSayings);
+                case 목록 -> wiseSayingController.actionList();
                 case 종료 -> actionExit();
             }
         }
